@@ -9,7 +9,7 @@ MOVIE_ID = "7913s2r"  # Spider-Man: Całkiem Nowy Dzień
 CINEMA_ID = "1060"  # Cinema City Sadyba Warszawa
 
 SMTP_SERVER = "://gmail.com"
-SMTP_PORT = 587
+SMTP_PORT = 465
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
 SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")
 RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL")
@@ -31,14 +31,15 @@ def send_email():
     msg.attach(MIMEText(body, "plain"))
 
     try:
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls()
+        # Używamy bezpiecznego połączenia SSL od samego początku (wymaga portu 465)
+        import smtplib
+        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, timeout=15)
         server.login(SENDER_EMAIL, SENDER_PASSWORD)
         server.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, msg.as_string())
         server.quit()
         print("E-mail powiadomienia został pomyślnie wysłany!")
     except Exception as e:
-        print(f"Błąd podczas wysyłania e-maila: {e}")
+
 
 
 def check_tickets():
