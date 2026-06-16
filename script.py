@@ -8,7 +8,7 @@ import requests
 MOVIE_ID = "7913s2r"  # Spider-Man: Całkiem Nowy Dzień
 CINEMA_ID = "1060"  # Cinema City Sadyba Warszawa
 
-SMTP_SERVER = "://gmail.com"
+SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 465
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
 SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")
