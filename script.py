@@ -17,29 +17,29 @@ RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL")
 
 def send_email():
     msg = MIMEMultipart()
-    msg["From"] = SENDER_EMAIL
-    msg["To"] = RECEIVER_EMAIL
-    msg[
-        "Subject"
-    ] = "🚨 BILETY NA SPIDER-MANA SĄ DOSTĘPNE W SADYBIE!"
+    msg["From"] = SENDER_EMAIL.strip() if SENDER_EMAIL else ""
+    msg["To"] = RECEIVER_EMAIL.strip() if RECEIVER_EMAIL else ""
+    msg["Subject"] = "🚨 BILETY NA FILMY SĄ DOSTĘPNE W SADYBIE!"
 
     body = (
         f"Sprzedaż biletów właśnie ruszyła w Cinema City Sadyba!\n\n"
-        f"Film: Spider-Man: Całkiem Nowy Dzień\n"
         f"Link do zakupu: https://cinema-city.pl"
     )
     msg.attach(MIMEText(body, "plain"))
 
     try:
-        # Używamy bezpiecznego połączenia SSL od samego początku (wymaga portu 465)
-        import smtplib
-        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, timeout=15)
-        server.login(SENDER_EMAIL, SENDER_PASSWORD)
-        server.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, msg.as_string())
+        # .strip() usuwa wszelkie ukryte spacje z nazwy serwera
+        clean_server = SMTP_SERVER.strip()
+        print(f"Łączenie z serwerem pocztowym: '{clean_server}'...")
+        
+        server = smtplib.SMTP_SSL(clean_server, SMTP_PORT, timeout=15)
+        server.login(SENDER_EMAIL.strip(), SENDER_PASSWORD.strip())
+        server.sendmail(SENDER_EMAIL.strip(), RECEIVER_EMAIL.strip(), msg.as_string())
         server.quit()
         print("E-mail powiadomienia został pomyślnie wysłany!")
     except Exception as e:
         print(f"Błąd podczas wysyłania e-maila: {e}")
+
 
 
 def check_tickets():
