@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 import requests
 
 # --- KONFIGURACJA ZACIĄGANA Z SEKRETÓW GITHUBA ---
-MOVIE_ID = "8085s2r"  # Spider-Man: Całkiem Nowy Dzień
+MOVIE_ID = "7913s2r"  # Spider-Man: Całkiem Nowy Dzień
 CINEMA_ID = "1060"  # Cinema City Sadyba Warszawa
 
 SMTP_SERVER = "://gmail.com"
