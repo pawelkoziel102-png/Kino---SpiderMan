@@ -39,7 +39,7 @@ def send_email():
         server.quit()
         print("E-mail powiadomienia został pomyślnie wysłany!")
     except Exception as e:
-
+        print(f"Błąd podczas wysyłania e-maila: {e}")
 
 
 def check_tickets():
